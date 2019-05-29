@@ -28,13 +28,32 @@ class App extends React.Component {
     }
   }
 
+  inputHandler = (event) => {
+    this.setState({todoName: event.target.value});
+  }
+  
 
+  // funtion to add a new todo in the list
+addTask = () => {
+    // format the new todo 
+    const newTodo =
+      {
+        task: this.state.todoName,
+        id: Date.now(),
+        completed: false      
+      }
+      this.setState({
+        todoList: this.state.todoList.concat(newTodo), // receive friendsList to be updated with new name (add)
+        todoName: '', // initate the input field to empty again
+      }) 
+}
 
   render() {
     return (
       <div>
         <h2>My Todo list:</h2>
         {
+          // this part will display the todo list as it is
           this.state.todoList.map(todo =>{
             if(todo.completed) {
               return (
@@ -44,8 +63,13 @@ class App extends React.Component {
             return (<div>{todo.task}</div>);
           })
         }
-        <input type="text"></input>
-        <button>Add</button>
+        <input 
+          value = {this.state.todoName}
+          onChange = {this.inputHandler}
+          type='text'        
+        >
+        </input>
+        <button onClick={this.addTask}>Add</button>
         <button>Clear Completed</button>
       </div>
     );
