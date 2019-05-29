@@ -41,6 +41,17 @@ class App extends React.Component {
     const clickedTask = document.getElementById(event.target.id);
     // Toggle the class name
     clickedTask.classList.toggle("completed");
+    // update the completed state
+    if (clickedTask.classList.contains("completed")) {
+      // if elements has a class of completed
+      this.state.todoList.forEach(task =>{
+        // we run through the list of task to find the matching ID;
+        if(task.id == event.target.id){
+          // if the IDs match we set completed to true
+          task.completed = true;
+        }
+      });
+    }
   }
   
 
@@ -57,6 +68,16 @@ addTask = () => {
         todoList: this.state.todoList.concat(newTodo), // receive friendsList to be updated with new name (add)
         todoName: '', // initate the input field to empty again
       }) 
+}
+
+// function that clear from the display the completed tasks
+clearCompleted = () => {
+  this.state.todoList.forEach(todo =>{
+    if(todo.completed) {
+      const hideTask = document.getElementById(todo.id);
+      hideTask.classList.add("hide")
+    }
+  })
 }
 
   render() {
@@ -81,7 +102,7 @@ addTask = () => {
         >
         </input>
         <button onClick={this.addTask}>Add</button>
-        <button>Clear Completed</button>
+        <button onClick={this.clearCompleted}>Clear Completed</button>
       </div>
     );
   }
