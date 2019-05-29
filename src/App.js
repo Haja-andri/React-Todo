@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 
 const initialTodoList = [
   {
@@ -28,8 +29,18 @@ class App extends React.Component {
     }
   }
 
+  // Handler for the input field
   inputHandler = (event) => {
     this.setState({todoName: event.target.value});
+  }
+
+  // Handler for click on a given task
+
+  updateCompletion = (event) => {
+    // Get the element clicked by its ID
+    const clickedTask = document.getElementById(event.target.id);
+    // Toggle the class name
+    clickedTask.classList.toggle("completed");
   }
   
 
@@ -57,10 +68,10 @@ addTask = () => {
           this.state.todoList.map(todo =>{
             if(todo.completed) {
               return (
-                <div Style="text-decoration: line-through">{todo.task}</div>
+                <div onClick={this.updateCompletion} id={todo.id} className="completed">{todo.task}</div>
               );
             }
-            return (<div>{todo.task}</div>);
+            return (<div onClick={this.updateCompletion} id={todo.id}>{todo.task}</div>);
           })
         }
         <input 
