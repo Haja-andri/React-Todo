@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import FormAction from './components/TodoComponents/TodoForm'
+import TodoList from './components/TodoComponents/TodoList'
 
 const initialTodoList = [];
 
@@ -83,17 +84,11 @@ setTitle = () => {
         {
           this.setTitle()
         }
-        {
-          // this part will display the todo list as it is
-          this.state.todoList.map(todo =>{
-            if(todo.completed) {
-              return (
-                <div onClick={this.updateCompletion} id={todo.id} className="completed">{todo.task}</div>
-              );
-            }
-            return (<div onClick={this.updateCompletion} id={todo.id}>{todo.task}</div>);
-          })
-        }
+        <TodoList 
+        setTitle = {this.setTitle}
+        todoList = {this.state.todoList}
+        updateCompletion = {this.updateCompletion}        
+        /> 
         </div>
         
         <FormAction 
