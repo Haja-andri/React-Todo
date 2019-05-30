@@ -53,6 +53,11 @@ class App extends React.Component {
     }));    
   }
 
+addTaskOnKey = (event) => {
+  if ( event.key == 'Enter' ) {
+    this.addTask();
+  }
+} 
   // funtion to add a new todo in the list
 addTask = () => {
     // format the new todo 
@@ -92,6 +97,7 @@ clearCompleted = () => {
           <input 
             value = {this.state.todoName}
             onChange = {this.inputHandler}
+            onKeyPress= {this.addTaskOnKey}
             type='text'        
           >
           </input>
