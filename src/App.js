@@ -1,18 +1,7 @@
 import React from 'react';
 import './App.css';
 
-const initialTodoList = [
-  {
-    task: 'Organize Garage',
-    id: 1528817077286,
-    completed: false
-  },
-  {
-    task: 'Bake Cookies',
-    id: 1528817084358,
-    completed: false
-  }
-];
+const initialTodoList = [];
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -54,7 +43,7 @@ class App extends React.Component {
   }
 
 addTaskOnKey = (event) => {
-  if ( event.key == 'Enter' ) {
+  if ( event.key === 'Enter' ) {
     this.addTask();
   }
 } 
@@ -78,10 +67,20 @@ clearCompleted = () => {
   this.setState({todoList: this.state.todoList.filter( todo => !todo.completed)});
 }
 
+setTitle = () => {
+  //console.log(list);
+  if(this.state.todoList.length > 0) {
+    return(<h2>My Todo list :</h2>);
+  }
+  else return (<h2>Add your list here :</h2>)
+}
+
   render() {
     return (
       <div className="container">
-        <h2>My Todo list:</h2>
+        {
+          this.setTitle()
+        }
         {
           // this part will display the todo list as it is
           this.state.todoList.map(todo =>{
