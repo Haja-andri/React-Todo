@@ -38,21 +38,19 @@ class App extends React.Component {
 
   updateCompletion = (event) => {
     // Get the element clicked by its ID
-    const clickedTask = document.getElementById(event.target.id);
+    const currentTodoID = event.target.id;
+    const clickedTask = document.getElementById(currentTodoID);
     // Toggle the class name
     clickedTask.classList.toggle("completed");
-    // update the completed state
-    if (clickedTask.classList.contains("completed")) {
-      // if elements has a class of completed
-      this.state.todoList.forEach(task =>{
-        // we run through the list of task to find the matching ID;
-        if(task.id == event.target.id){
-          // if the IDs match we set completed to true
-          task.completed = true;
-          //this.setState({completed: true});
+    // update the completed value
+    this.setState(currentState => ({
+      todoList: currentState.todoList.map(todo => {
+        if (todo.id == currentTodoID) {
+          todo.completed = !todo.completed;
         }
-      });
-    }
+        return todo;
+      }),
+    }));    
   }
 
   // funtion to add a new todo in the list
