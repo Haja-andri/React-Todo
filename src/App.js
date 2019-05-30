@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import FormAction from './components/TodoComponents/TodoForm'
 
 const initialTodoList = [];
 
@@ -78,6 +79,7 @@ setTitle = () => {
   render() {
     return (
       <div className="container">
+        <div className="subContainer">
         {
           this.setTitle()
         }
@@ -92,17 +94,15 @@ setTitle = () => {
             return (<div onClick={this.updateCompletion} id={todo.id}>{todo.task}</div>);
           })
         }
-        <div className="actions">
-          <input 
-            value = {this.state.todoName}
-            onChange = {this.inputHandler}
-            onKeyPress= {this.addTaskOnKey}
-            type='text'        
-          >
-          </input>
-          <button className="add" onClick={this.addTask}>Add</button>
-          <button className="clear" onClick={this.clearCompleted}>Clear Completed</button>
         </div>
+        
+        <FormAction 
+            value = {this.state.todoName}
+            inputHandler = {this.inputHandler}
+            addTaskOnKey = {this.addTaskOnKey}
+            addTask = {this.addTask}   
+            clearCompleted = {this.clearCompleted}
+        />
       </div>
     );
   }
