@@ -88,14 +88,16 @@ clearCompleted = () => {
             return (<div onClick={this.updateCompletion} id={todo.id}>{todo.task}</div>);
           })
         }
-        <input 
-          value = {this.state.todoName}
-          onChange = {this.inputHandler}
-          type='text'        
-        >
-        </input>
-        <button onClick={this.addTask}>Add</button>
-        <button onClick={this.clearCompleted}>Clear Completed</button>
+        <div className="actions">
+          <input 
+            value = {this.state.todoName}
+            onChange = {this.inputHandler}
+            type='text'        
+          >
+          </input>
+          <button className="add" onClick={this.addTask}>Add</button>
+          <button className="clear" onClick={this.clearCompleted}>Clear Completed</button>
+        </div>
       </div>
     );
   }

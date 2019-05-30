@@ -1,3 +1,14 @@
+
+body, html {
+    font-size: 16px;
+    font-family: 'Montserrat', 'Muli', sans-serif;
+    color: #333333;
+}
+
+h2 {
+    color: white;
+}
+
 .completed {
     text-decoration: line-through;
 }
@@ -7,9 +18,61 @@
 }
 
 .container {
-    background-color: red;
     max-width: 60%;
+    border: 1px solid lightsalmon;
     margin: 0 auto;
-    padding: 10px;
+    padding: 20px;
     border-radius: 5px;
+    background-image: linear-gradient(to right bottom, #FF5454, #FE8A4D, #FDD64D);    
+}
+
+.actions {
+    display: flex;
+}
+
+input {
+    border: 1px solid #fafafa;
+    border-bottom-left-radius: 40px;
+    border-top-left-radius: 40px;
+    width: 30%;
+    font-size: 1rem;
+    margin-top: 30px;
+    padding: .7rem;
+    box-sizing: border-box;
+    transition: ease-in-out, width .35s ease-in-out;
+}
+
+input[type=text]:focus {
+    width: 55%;
+    outline: none;
+  }
+
+button {
+    font-size: 1rem;
+    padding: .7rem;
+    border: 1px solid #fafafa;
+    background-color: #1bb05d;
+    margin-top: 30px;
+    color: #333333
+}
+button:focus {
+    outline: none;
+}
+
+button:hover {
+    background-color: #FDD64D;
+    color: white;
+    font-weight: bold;
+}
+
+
+
+button.add, input {
+    border-right: none;
+}
+
+button.clear {
+    border-bottom-right-radius: 40px;
+    border-top-right-radius: 40px;    
+    min-width: 150px;
 }
