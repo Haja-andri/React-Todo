@@ -49,11 +49,11 @@ class App extends React.Component {
         if(task.id == event.target.id){
           // if the IDs match we set completed to true
           task.completed = true;
+          //this.setState({completed: true});
         }
       });
     }
   }
-  
 
   // funtion to add a new todo in the list
 addTask = () => {
@@ -72,17 +72,12 @@ addTask = () => {
 
 // function that clear from the display the completed tasks
 clearCompleted = () => {
-  this.state.todoList.forEach(todo =>{
-    if(todo.completed) {
-      const hideTask = document.getElementById(todo.id);
-      hideTask.classList.add("hide")
-    }
-  })
+  this.setState({todoList: this.state.todoList.filter( todo => !todo.completed)});
 }
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h2>My Todo list:</h2>
         {
           // this part will display the todo list as it is

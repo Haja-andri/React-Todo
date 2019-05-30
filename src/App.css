@@ -5,3 +5,11 @@
 .hide {
     display: none;
 }
+
+.container {
+    background-color: red;
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 5px;
+}
