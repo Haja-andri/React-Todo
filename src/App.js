@@ -1,18 +1,9 @@
 import React from 'react';
 import './App.css';
+import FormAction from './components/TodoComponents/TodoForm'
+import TodoList from './components/TodoComponents/TodoList'
 
-const initialTodoList = [
-  {
-    task: 'Organize Garage',
-    id: 1528817077286,
-    completed: false
-  },
-  {
-    task: 'Bake Cookies',
-    id: 1528817084358,
-    completed: false
-  }
-];
+const initialTodoList = [];
 
 class App extends React.Component {
   // you will need a place to store your state in this component.
@@ -38,23 +29,26 @@ class App extends React.Component {
 
   updateCompletion = (event) => {
     // Get the element clicked by its ID
-    const clickedTask = document.getElementById(event.target.id);
+    const currentTodoID = event.target.id;
+    const clickedTask = document.getElementById(currentTodoID);
     // Toggle the class name
     clickedTask.classList.toggle("completed");
-    // update the completed state
-    if (clickedTask.classList.contains("completed")) {
-      // if elements has a class of completed
-      this.state.todoList.forEach(task =>{
-        // we run through the list of task to find the matching ID;
-        if(task.id == event.target.id){
-          // if the IDs match we set completed to true
-          task.completed = true;
+    // update the completed value
+    this.setState(currentState => ({
+      todoList: currentState.todoList.map(todo => {
+        if (todo.id == currentTodoID) {
+          todo.completed = !todo.completed;
         }
-      });
-    }
+        return todo;
+      }),
+    }));    
   }
-  
 
+addTaskOnKey = (event) => {
+  if ( event.key === 'Enter' ) {
+    this.addTask();
+  }
+} 
   // funtion to add a new todo in the list
 addTask = () => {
     // format the new todo 
@@ -72,37 +66,38 @@ addTask = () => {
 
 // function that clear from the display the completed tasks
 clearCompleted = () => {
-  this.state.todoList.forEach(todo =>{
-    if(todo.completed) {
-      const hideTask = document.getElementById(todo.id);
-      hideTask.classList.add("hide")
-    }
-  })
+  this.setState({todoList: this.state.todoList.filter( todo => !todo.completed)});
+}
+
+setTitle = () => {
+  //console.log(list);
+  if(this.state.todoList.length > 0) {
+    return(<h2>My Todo list :</h2>);
+  }
+  else return (<h2>Add your list here :</h2>)
 }
 
   render() {
     return (
-      <div>
-        <h2>My Todo list:</h2>
+      <div className="container">
+        <div className="subContainer">
         {
-          // this part will display the todo list as it is
-          this.state.todoList.map(todo =>{
-            if(todo.completed) {
-              return (
-                <div onClick={this.updateCompletion} id={todo.id} className="completed">{todo.task}</div>
-              );
-            }
-            return (<div onClick={this.updateCompletion} id={todo.id}>{todo.task}</div>);
-          })
+          this.setTitle()
         }
-        <input 
-          value = {this.state.todoName}
-          onChange = {this.inputHandler}
-          type='text'        
-        >
-        </input>
-        <button onClick={this.addTask}>Add</button>
-        <button onClick={this.clearCompleted}>Clear Completed</button>
+        <TodoList 
+        setTitle = {this.setTitle}
+        todoList = {this.state.todoList}
+        updateCompletion = {this.updateCompletion}        
+        /> 
+        </div>
+        
+        <FormAction 
+            value = {this.state.todoName}
+            inputHandler = {this.inputHandler}
+            addTaskOnKey = {this.addTaskOnKey}
+            addTask = {this.addTask}   
+            clearCompleted = {this.clearCompleted}
+        />
       </div>
     );
   }
